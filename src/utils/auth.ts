@@ -1,6 +1,10 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence,
   onAuthStateChanged,
 } from "firebase/auth";
 import type { User } from "firebase/auth";
@@ -43,6 +47,9 @@ export async function handleSignup(
   try {
     auth = getFirebaseAuth();
     db = getFirebaseDatabase();
+    
+    // Set persistence to local (save login)
+    await setPersistence(auth, browserLocalPersistence);
   } catch (error: any) {
     throw new Error("Firebase not configured. Please update config.ts with your Firebase credentials.");
   }
@@ -121,6 +128,9 @@ export async function handleLogin(
   try {
     auth = getFirebaseAuth();
     db = getFirebaseDatabase();
+    
+    // Set persistence to local (save login)
+    await setPersistence(auth, browserLocalPersistence);
   } catch (error: any) {
     throw new Error("Firebase not configured. Please update config.ts with your Firebase credentials.");
   }
@@ -172,6 +182,125 @@ export function getCurrentUser(): User | null {
     return auth.currentUser;
   } catch (error) {
     return null;
+  }
+}
+
+// Google Sign-In function
+export async function handleGoogleSignIn(): Promise<UserData> {
+  let auth, db;
+  try {
+    auth = getFirebaseAuth();
+    db = getFirebaseDatabase();
+    
+    // Set persistence to local (save login)
+    await setPersistence(auth, browserLocalPersistence);
+  } catch (error: any) {
+    throw new Error("Firebase not configured. Please update config.ts with your Firebase credentials.");
+  }
+
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({
+    prompt: 'select_account'
+  });
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    
+    if (!user.email) {
+      throw new Error("Google account email not found.");
+    }
+
+    const emailKey = safeEmailKey(user.email);
+    const snapshot = await get(child(ref(db), `users/${emailKey}`));
+
+    // If user exists, update last login
+    if (snapshot.exists()) {
+      const now = new Date().toISOString();
+      await update(ref(db, `users/${emailKey}/profile`), {
+        lastLogin: now,
+      });
+
+      const data = snapshot.val();
+      const updatedData: UserData = {
+        ...data,
+        profile: {
+          ...(data.profile || {}),
+          name: user.displayName || data.profile?.name || "User",
+          email: user.email,
+          lastLogin: now,
+        },
+      };
+
+      localStorage.setItem("userData", JSON.stringify(updatedData));
+      return updatedData;
+    } else {
+      // New user - create account
+      const now = new Date().toISOString();
+      const userData: UserData = {
+        profile: {
+          name: user.displayName || "User",
+          email: user.email,
+          passwordHash: "", // No password for Google users
+          createdAt: now,
+          lastLogin: now,
+        },
+        dashboard: {
+          currentCPM: 0,
+          totalavailable: 0,
+          todayImpressions: 0,
+          totalEarnings: 0,
+          totalImpressions: 0,
+          dailyStats: generateZeroStats(),
+        },
+        withdrawals: {
+          totalWithdrawn: 0,
+          totalavailable: 0,
+          requests: {
+            "-initRequest": {
+              method: "UPI",
+              amount: 0,
+              date: now,
+              status: "pending",
+              details: { upi: "init@upi" },
+            },
+          },
+        },
+        shortner: {
+          web: {
+            initCode: {
+              originalUrl: "https://terabox.com/s/placeholder",
+              shortUrl: `${window.location.origin}/a/initCode`,
+              fileId: "placeholder",
+              views: 0,
+              createdAt: now,
+            },
+          },
+          telegram: {
+            initTelegram: {
+              originalUrl: "https://terabox.com/s/initTelegram",
+              shortUrl: `${window.location.origin}/a/initTelegram`,
+              fileId: "initTelegram",
+              telegramId: "000000",
+              views: 0,
+              createdAt: now,
+            },
+          },
+        },
+      };
+
+      await set(ref(db, `users/${emailKey}`), userData);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      return userData;
+    }
+  } catch (error: any) {
+    if (error.code === 'auth/popup-closed-by-user') {
+      throw new Error("Sign-in cancelled. Please try again.");
+    } else if (error.code === 'auth/popup-blocked') {
+      throw new Error("Popup blocked. Please allow popups and try again.");
+    } else {
+      throw new Error(error.message || "Google sign-in failed. Please try again.");
+    }
   }
 }
 
