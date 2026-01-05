@@ -1,0 +1,165 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* iPhone safe area */
+  padding-top: calc(1rem + env(safe-area-inset-top));
+  /* Smooth rendering */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #667eea;
+  text-decoration: none;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-text {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .logo-image {
+    height: 32px;
+  }
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #667eea;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+  /* Minimum touch target for iOS */
+  min-height: 44px;
+  min-width: 44px;
+  /* Better touch handling */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.login-btn {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.login-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.signup-btn {
+  background: #667eea;
+  color: white;
+}
+
+.signup-btn:hover {
+  background: #5568d3;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 16px;
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+  
+  .logo a {
+    font-size: 1.3rem;
+  }
+  
+  .nav-links {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .nav-links a {
+    display: block;
+    padding: 12px;
+    /* Better touch target */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .auth-buttons {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .auth-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.75rem 12px;
+    padding-top: calc(0.75rem + env(safe-area-inset-top));
+  }
+  
+  .logo a {
+    font-size: 1.2rem;
+  }
+}
+

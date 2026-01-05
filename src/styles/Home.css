@@ -1,0 +1,268 @@
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  /* Smooth rendering on iOS */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  /* Prevent text selection on iOS */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.shortener-box {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Better touch handling */
+  touch-action: manipulation;
+}
+
+.shortener-box input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px; /* Prevents zoom on iOS */
+  /* Better touch target */
+  min-height: 44px;
+  -webkit-appearance: none;
+  appearance: none;
+  /* Smooth focus */
+  transition: border-color 0.2s ease;
+}
+
+.shortener-box input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.shortener-box button {
+  padding: 14px 24px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  /* Minimum touch target for iOS */
+  min-height: 44px;
+  min-width: 44px;
+  /* Smooth transitions */
+  transition: all 0.2s ease;
+  /* Better touch handling */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.shortener-box button:active {
+  background: #5568d3;
+  transform: scale(0.98);
+}
+
+.shortener-box button:hover {
+  background: #5568d3;
+}
+
+/* CPM Section */
+.cpm-section {
+  padding: 60px 20px;
+  background: #f8f9fa;
+}
+
+.cpm-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cpm-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cpm-section > .container > p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.cpm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+
+.cpm-grid > div {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.cpm-section .note {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Content Box */
+.content-box {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.content-box h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.content-box p {
+  line-height: 1.8;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.earnings-list {
+  list-style: none;
+  padding: 0;
+}
+
+.earnings-list li {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  border-radius: 4px;
+}
+
+/* Responsive - Mobile & iPhone */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 16px;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .shortener-box {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .shortener-box input {
+    width: 100%;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .shortener-box button {
+    width: 100%;
+    padding: 16px;
+  }
+  
+  .cpm-section {
+    padding: 40px 16px;
+  }
+  
+  .cpm-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cpm-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  .cpm-grid > div {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .content-box {
+    padding: 40px 16px;
+  }
+  
+  .content-box h2 {
+    font-size: 1.8rem;
+  }
+  
+  .content-box p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .earnings-list li {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}
+
+/* iPhone specific optimizations */
+@media (max-width: 480px) {
+  .hero {
+    padding: 50px 12px;
+  }
+  
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+  
+  .cpm-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .content-box {
+    padding: 30px 12px;
+  }
+}
+
+/* iPhone landscape */
+@media (max-width: 896px) and (orientation: landscape) {
+  .hero {
+    padding: 40px 20px;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+

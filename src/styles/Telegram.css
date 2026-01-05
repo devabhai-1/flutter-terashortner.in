@@ -1,0 +1,242 @@
+/* Professional Telegram Page */
+.telegram-main-content {
+  margin-left: 260px;
+  padding: 100px 40px 60px;
+  padding-top: calc(100px + env(safe-area-inset-top));
+  max-width: 1000px;
+}
+
+.telegram-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Hero Section */
+.telegram-hero {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.telegram-icon-large {
+  font-size: 80px;
+  margin-bottom: 24px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.telegram-hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+.telegram-hero p {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Features Grid */
+.telegram-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Connect Section */
+.telegram-connect {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  text-align: center;
+  color: white;
+}
+
+.connect-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: white;
+}
+
+.connect-content p {
+  font-size: 16px;
+  margin: 0 0 32px 0;
+  opacity: 0.95;
+}
+
+.telegram-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 40px;
+  background: white;
+  color: #667eea;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  touch-action: manipulation;
+}
+
+.telegram-btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.telegram-btn-primary:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.telegram-btn-primary span:first-child {
+  font-size: 24px;
+}
+
+.telegram-btn-primary span:last-child {
+  font-size: 20px;
+}
+
+/* Instructions */
+.telegram-instructions {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.telegram-instructions h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 24px 0;
+}
+
+.instructions-list {
+  list-style: none;
+  counter-reset: step-counter;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions-list li {
+  counter-increment: step-counter;
+  padding: 16px 0 16px 50px;
+  position: relative;
+  font-size: 16px;
+  color: #374151;
+  line-height: 1.6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.instructions-list li:last-child {
+  border-bottom: none;
+}
+
+.instructions-list li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .telegram-main-content {
+    margin-left: 0;
+    padding: 90px 20px 40px;
+    padding-top: calc(90px + env(safe-area-inset-top));
+  }
+
+  .telegram-hero {
+    padding: 40px 24px;
+  }
+
+  .telegram-hero h1 {
+    font-size: 28px;
+  }
+
+  .telegram-features {
+    grid-template-columns: 1fr;
+  }
+
+  .telegram-connect {
+    padding: 40px 24px;
+  }
+
+  .connect-content h2 {
+    font-size: 24px;
+  }
+
+  .telegram-btn-primary {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+
+  .telegram-instructions {
+    padding: 32px 24px;
+  }
+}
